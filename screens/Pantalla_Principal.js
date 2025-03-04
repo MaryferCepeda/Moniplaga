@@ -1,409 +1,243 @@
-import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
-import { LinearGradient } from 'expo-linear-gradient';
-import React, { useState } from 'react';
-import { Image, SafeAreaView, ScrollView, StyleSheet, Text, TouchableOpacity, View, } from 'react-native';
+import { Feather, FontAwesome, Ionicons, MaterialIcons } from '@expo/vector-icons';
+import { StatusBar } from 'expo-status-bar';
+import { Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-export default function MoniPlagaApp() {
-  const [pestanaActiva, setPestanaActiva] = useState('home');
-  const [imagenSeleccionada] = useState(null);
-
+export default function HomeScreen() {
   return (
-    <SafeAreaView style={estilos.areaSegura}>
-      <View style={estilos.contenedorPrincipal}>
-        <ScrollView style={estilos.contenedor}>
-          <LinearGradient
-            colors={['#2E7D32', '#4CAF50']}
-            style={estilos.cabecera}
-          >
-            <View style={estilos.contenidoCabecera}>
-              <View>
-                <Text style={estilos.tituloCabecera}>MoniPlaga</Text>
-                <Text style={estilos.subtituloCabecera}>Identificación de Plagas</Text>
-              </View>
-              <View style={estilos.iconosCabecera}>
-
-                <TouchableOpacity style={estilos.botonIcono}>
-                  <Ionicons name="notifications-outline" size={24} color="white" />
-                  <View style={estilos.insigniaNotificacion}>
-                    <Text style={estilos.textoInsignia}>1</Text>
-                  </View>
-                </TouchableOpacity>
-                
-                <TouchableOpacity style={estilos.botonIcono}>
-                <MaterialCommunityIcons name="account-outline" size={24} color="white" />
-                </TouchableOpacity>
-
-              </View>
-            </View>
-          </LinearGradient>
-
-          <View style={estilos.contenido}>
-            <View style={estilos.contenedorMonitor}>
-              <Image 
-                source={{ uri: 'https://api.a0.dev/assets/image?text=security%20camera%20monitoring%20farm%20field%20with%20crops&aspect=16:9' }}
-                style={estilos.imagenMonitor}
-              />
-              <View style={estilos.superposicionMonitor}>
-                <Text style={estilos.textoMonitor}>Cámara de Monitoreo</Text>
-                <View style={estilos.indicadorEnVivo}>
-                  <View style={estilos.puntoEnVivo} />
-                  <Text style={estilos.textoEnVivo}>EN VIVO</Text>
-                </View>
-              </View>
-            </View>
-
-            {imagenSeleccionada && (
-              <View style={estilos.seccionResultado}>
-                <Image 
-                  source={{ uri: imagenSeleccionada }}
-                  style={estilos.imagenPrevia}
-                />
-                <View style={estilos.tarjetaAnalisis}>
-                  <Text style={estilos.tituloAnalisis}>Análisis de Plaga</Text>
-                  <Text style={estilos.tipoPlaga}>Tipo: Gorgojo del Maíz</Text>
-                  <Text style={estilos.nivelRiesgo}>Nivel de Riesgo: Alto</Text>
-                  <Text style={estilos.descripcion}>
-                    Esta plaga puede causar daños significativos a los cultivos de maíz. 
-                    Se recomienda acción inmediata.
-                  </Text>
-                </View>
-              </View>
-            )}
-
-            <View style={estilos.actividadReciente}>
-              <Text style={estilos.tituloReciente}>Actividad Reciente</Text>
-              <View style={estilos.tarjetaActividad}>
-                <MaterialCommunityIcons name="calendar-check" size={24} color="#2E7D32" />
-                <View style={estilos.contenidoActividad}>
-                  <Text style={estilos.textoActividad}>Último análisis: Gorgojo en Maíz</Text>
-                  <Text style={estilos.fechaActividad}>Hace 2 días</Text>
-                </View>
-              </View>
-              <View style={estilos.tarjetaActividad}>
-                <MaterialCommunityIcons name="phone-check" size={24} color="#2E7D32" />
-                <View style={estilos.contenidoActividad}>
-                  <Text style={estilos.textoActividad}>Contacto con exterminador</Text>
-                  <Text style={estilos.fechaActividad}>Hace 3 días</Text>
-                </View>
-              </View>
-            </View>
-          </View>
-        </ScrollView>
-
-        <View style={estilos.navInferior}>
-          <TouchableOpacity 
-            style={[estilos.itemNav, pestanaActiva === 'home' && estilos.itemNavActivo]}
-            onPress={() => setPestanaActiva('home')}
-          >
-            <MaterialCommunityIcons 
-              name="home" 
-              size={24} 
-              color={pestanaActiva === 'home' ? '#2E7D32' : '#666'} 
-            />
-            <Text style={[estilos.textoNav, pestanaActiva === 'home' && estilos.textoNavActivo]}>Inicio</Text>
+    <View style={styles.contenedor}>
+      <StatusBar style="light" />
+      <View style={styles.cabecera}>
+        <View>
+          <Text style={styles.tituloCabecera}>MoniPlaga</Text>
+          <Text style={styles.subtituloCabecera}>Detector de plagas</Text>
+        </View>
+        <View style={styles.iconosCabecera}>
+          <TouchableOpacity style={styles.botonIcono}>
+            <Ionicons name="notifications-outline" size={24} color="white" />
           </TouchableOpacity>
-
-          <TouchableOpacity 
-            style={[estilos.itemNav, pestanaActiva === 'history' && estilos.itemNavActivo]}
-            onPress={() => setPestanaActiva('history')}
-          >
-            <MaterialCommunityIcons 
-              name="history" 
-              size={24} 
-              color={pestanaActiva === 'history' ? '#2E7D32' : '#666'} 
-            />
-            <Text style={[estilos.textoNav, pestanaActiva === 'history' && estilos.textoNavActivo]}>Historial</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={estilos.botonCamara}>
-            <MaterialCommunityIcons name="camera" size={32} color="white" />
-          </TouchableOpacity>
-
-          <TouchableOpacity 
-            style={[estilos.itemNav, pestanaActiva === 'exterminator' && estilos.itemNavActivo]}
-            onPress={() => setPestanaActiva('exterminator')}
-          >
-            <MaterialCommunityIcons 
-              name="phone" 
-              size={24} 
-              color={pestanaActiva === 'exterminator' ? '#2E7D32' : '#666'} 
-            />
-            <Text style={[estilos.textoNav, pestanaActiva === 'exterminator' && estilos.textoNavActivo]}>Exterminador</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity 
-            style={[estilos.itemNav, pestanaActiva === 'settings' && estilos.itemNavActivo]}
-            onPress={() => setPestanaActiva('settings')}
-          >
-            <MaterialCommunityIcons 
-              name="cog" 
-              size={24} 
-              color={pestanaActiva === 'settings' ? '#2E7D32' : '#666'} 
-            />
-            <Text style={[estilos.textoNav, pestanaActiva === 'settings' && estilos.textoNavActivo]}>Ajustes</Text>
+          <TouchableOpacity style={styles.botonIcono}>
+            <Ionicons name="settings-outline" size={24} color="white" />
           </TouchableOpacity>
         </View>
       </View>
-    </SafeAreaView>
+      <ScrollView style={styles.contenido}>
+        <View style={styles.contenedorCamara}>
+          <Image 
+            source={{ uri: 'https://api.a0.dev/assets/image?text=corn%20field%20with%20young%20plants%20growing%20in%20rows&aspect=16:9' }} 
+            style={styles.imagenCamara} 
+          />
+          <View style={styles.sobreCamara}>
+            <Text style={styles.textoCamara}>Cámara de Monitoreo</Text>
+            <View style={styles.contenedorEnVivo}>
+              <View style={styles.indicadorEnVivo} />
+              <Text style={styles.textoEnVivo}>EN VIVO</Text>
+            </View>
+          </View>
+        </View>
+        <View style={styles.seccionActividad}>
+          <Text style={styles.tituloActividad}>Actividad Reciente</Text>
+          <TouchableOpacity style={styles.tarjetaActividad}>
+            <View style={styles.contenedorIconoActividad}>
+              <FontAwesome name="calendar" size={20} color="white" />
+            </View>
+            <View style={styles.infoActividad}>
+              <Text style={styles.tituloTarjetaActividad}>Ultimo análisis: plantitas uwu</Text>
+              <Text style={styles.tiempoActividad}>hace 3 días</Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.tarjetaActividad}>
+            <View style={styles.contenedorIconoActividad}>
+              <Ionicons name="eye-outline" size={22} color="white" />
+            </View>
+            <View style={styles.infoActividad}>
+              <Text style={styles.tituloTarjetaActividad}>Avistamiento de insecto</Text>
+              <Text style={styles.tiempoActividad}>hace 3 minutos</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
+      <TouchableOpacity style={styles.botonFlotante}>
+        <Ionicons name="add" size={30} color="white" />
+      </TouchableOpacity>
+      <View style={styles.barraInferior}>
+        <TouchableOpacity style={styles.itemNavegacion}>
+          <Ionicons name="home" size={24} color="white" />
+          <View style={styles.indicadorActivo} />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.itemNavegacion}>
+          <Feather name="phone" size={24} color="white" />
+        </TouchableOpacity>
+        <View style={styles.contenedorBotonCentral}>
+          <TouchableOpacity style={styles.botonCentral}>
+            <Ionicons name="camera-outline" size={24} color="white" />
+          </TouchableOpacity>
+        </View>
+        <TouchableOpacity style={styles.itemNavegacion}>
+          <MaterialIcons name="history" size={24} color="white" />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.itemNavegacion}>
+          <Feather name="user" size={24} color="white" />
+        </TouchableOpacity>
+      </View>
+    </View>
   );
 }
 
-const estilos = StyleSheet.create({
-  areaSegura: {
-    flex: 1,
-    backgroundColor: '#F5F5F5',
-  },
-  contenedorPrincipal: {
-    flex: 1,
-    position: 'relative',
-  },
+const styles = StyleSheet.create({
   contenedor: {
     flex: 1,
-    backgroundColor: '#F5F5F5',
+    backgroundColor: '#f5f5f5',
   },
   cabecera: {
-    padding: 20,
+    backgroundColor: '#3a5a40',
     paddingTop: 40,
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20,
-    elevation: 4,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
-  },
-  contenidoCabecera: {
+    paddingBottom: 15,
+    paddingHorizontal: 20,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'flex-start',
+    alignItems: 'center',
   },
   tituloCabecera: {
-    fontSize: 28,
+    fontSize: 24,
     fontWeight: 'bold',
     color: 'white',
-    textShadowColor: 'rgba(0, 0, 0, 0.2)',
-    textShadowOffset: { width: 0, height: 1 },
-    textShadowRadius: 2,
   },
   subtituloCabecera: {
-    fontSize: 16,
-    color: 'white',
-    opacity: 0.9,
+    fontSize: 14,
+    color: 'rgba(255, 255, 255, 0.8)',
   },
   iconosCabecera: {
     flexDirection: 'row',
-    alignItems: 'center',
-    gap: 12,
   },
   botonIcono: {
-    position: 'relative',
-    padding: 4,
-  },
-  insigniaNotificacion: {
-    position: 'absolute',
-    right: -6,
-    top: -6,
-    backgroundColor: '#FF5252',
-    borderRadius: 10,
-    width: 20,
-    height: 20,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  textoInsignia: {
-    color: 'white',
-    fontSize: 12,
-    fontWeight: 'bold',
+    marginLeft: 15,
   },
   contenido: {
-    padding: 16,
-    paddingBottom: 80,
+    flex: 1,
   },
-  contenedorMonitor: {
-    position: 'relative',
+  contenedorCamara: {
     height: 200,
-    borderRadius: 12,
+    margin: 15,
+    borderRadius: 10,
     overflow: 'hidden',
-    marginBottom: 20,
-    elevation: 4,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
   },
-  imagenMonitor: {
+  imagenCamara: {
     width: '100%',
     height: '100%',
   },
-  superposicionMonitor: {
+  sobreCamara: {
     position: 'absolute',
     bottom: 0,
     left: 0,
     right: 0,
-    padding: 16,
-    backgroundColor: 'rgba(0,0,0,0.5)',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    padding: 10,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-  textoMonitor: {
+  textoCamara: {
     color: 'white',
     fontSize: 16,
-    fontWeight: 'bold',
-    textShadowColor: 'rgba(0, 0, 0, 0.75)',
-    textShadowOffset: { width: 0, height: 1 },
-    textShadowRadius: 2,
   },
-  indicadorEnVivo: {
+  contenedorEnVivo: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8,
-    backgroundColor: 'rgba(0,0,0,0.3)',
-    paddingHorizontal: 12,
-    paddingVertical: 6,
-    borderRadius: 16,
   },
-  puntoEnVivo: {
+  indicadorEnVivo: {
     width: 8,
     height: 8,
     borderRadius: 4,
-    backgroundColor: '#FF4444',
+    backgroundColor: 'red',
+    marginRight: 5,
   },
   textoEnVivo: {
     color: 'white',
-    fontSize: 12,
     fontWeight: 'bold',
   },
-  seccionResultado: {
-    marginTop: 20,
-    backgroundColor: '#FFFFFF',
-    borderRadius: 12,
-    padding: 16,
-    gap: 16,
-    elevation: 3,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
+  seccionActividad: {
+    padding: 15,
   },
-  imagenPrevia: {
-    width: '100%',
-    height: 200,
-    borderRadius: 8,
-  },
-  tarjetaAnalisis: {
-    backgroundColor: '#F5F5F5',
-    padding: 16,
-    borderRadius: 8,
-    gap: 8,
-  },
-  tituloAnalisis: {
+  tituloActividad: {
     fontSize: 18,
     fontWeight: 'bold',
-    color: '#2E7D32',
-  },
-  tipoPlaga: {
-    fontSize: 16,
-    color: '#333',
-  },
-  nivelRiesgo: {
-    fontSize: 16,
-    color: '#D32F2F',
-    fontWeight: '600',
-  },
-  descripcion: {
-    fontSize: 14,
-    color: '#666',
-    lineHeight: 20,
-  },
-  actividadReciente: {
-    marginTop: 20,
-  },
-  tituloReciente: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#333',
-    marginBottom: 12,
+    color: '#3a5a40',
+    marginBottom: 15,
   },
   tarjetaActividad: {
-    backgroundColor: '#FFFFFF',
-    padding: 16,
-    borderRadius: 12,
+    backgroundColor: '#88a47c',
+    borderRadius: 8,
+    padding: 15,
+    marginBottom: 10,
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 12,
-    elevation: 2,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.1,
-    shadowRadius: 2,
   },
-  contenidoActividad: {
-    marginLeft: 12,
+  contenedorIconoActividad: {
+    width: 38,
+    height: 38,
+    borderRadius: 19,
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginRight: 12,
+  },
+  infoActividad: {
     flex: 1,
   },
-  textoActividad: {
-    fontSize: 14,
-    color: '#333',
+  tituloTarjetaActividad: {
+    color: 'white',
+    fontSize: 16,
     fontWeight: '500',
   },
-  fechaActividad: {
-    fontSize: 12,
-    color: '#666',
-    marginTop: 4,
+  tiempoActividad: {
+    color: 'rgba(255, 255, 255, 0.7)',
+    fontSize: 14,
+    marginTop: 2,
   },
-  navInferior: {
+  botonFlotante: {
     position: 'absolute',
-    bottom: 0,
-    left: 0,
-    right: 0,
-    backgroundColor: '#FFFFFF',
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    paddingVertical: 8,
-    paddingBottom: 0, // Se elimina el padding inferior extra
-    borderTopWidth: 1,
-    borderTopColor: '#E0E0E0',
-    elevation: 8,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: -4 },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-  },
-  itemNav: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 8,
-  },
-  itemNavActivo: {
-    backgroundColor: '#E8F5E9',
-    borderRadius: 20,
-    paddingHorizontal: 16,
-  },
-  textoNav: {
-    fontSize: 12,
-    color: '#666',
-    marginTop: 4,
-  },
-  textoNavActivo: {
-    color: '#2E7D32',
-    fontWeight: '600',
-  },
-  botonCamara: {
-    backgroundColor: '#2E7D32',
+    right: 20,
+    bottom: 80,
     width: 56,
     height: 56,
     borderRadius: 28,
+    backgroundColor: '#3a5a40',
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: 20,
-    borderWidth: 3,
-    borderColor: '#FFFFFF',
-    elevation: 4,
+    elevation: 5,
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.2,
-    shadowRadius: 5,
-  }
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.3,
+    shadowRadius: 3,
+  },
+  barraInferior: {
+    height: 60,
+    backgroundColor: '#3a5a40',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-around',
+  },
+  itemNavegacion: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    height: '100%',
+    width: 60,
+  },
+  indicadorActivo: {
+    width: 4,
+    height: 4,
+    borderRadius: 2,
+    backgroundColor: 'white',
+    marginTop: 4,
+  },
+  botonCentral: {
+    width: 70,
+    height: 70,
+    borderRadius: 35,
+    backgroundColor: '#0e813c',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 34,
+  },
+  
 });
