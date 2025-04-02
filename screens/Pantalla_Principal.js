@@ -15,9 +15,6 @@ export default function HomeScreen() {
           <TouchableOpacity style={styles.botonIcono}>
             <Ionicons name="notifications-outline" size={24} color="white" />
           </TouchableOpacity>
-          <TouchableOpacity style={styles.botonIcono}>
-            <Ionicons name="settings-outline" size={24} color="white" />
-          </TouchableOpacity>
         </View>
       </View>
       <ScrollView style={styles.contenido}>
